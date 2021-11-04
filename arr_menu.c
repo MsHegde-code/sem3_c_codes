@@ -1,71 +1,73 @@
 #include<stdio.h>
 #include<stdlib.h>
-int *arr,i,n;
+int i,j,pos,ele,*data,n,selection;
 //functions
-int create(n){
-    printf("enter the array size\n");
-    scanf("%d",&n);
-    arr=(int*)malloc(n*sizeof(int));
-    if(arr==NULL){
-        printf("insufficient space\n");
-        exit(0);
-    }
+void create(int n){
+    data=(int*)malloc(n*sizeof(int));
     printf("enter the array elements\n");
-    for(i=0;i<n;i++){
-        scanf("%d",&arr[i]);
-    }
-}
-int show(){
-    printf("the entered elements are:\n");
-    for(i=0;i<n;i++){
-        printf("%d\t",arr[i]);
+    for ( i = 0; i < n; i++)
+    {
+        scanf("%d",(data+i));
     }
     printf("\n");
+    
 }
-int insert1(ele,pos){
-    int j=n-1;
-    n++;
-    arr=(int*)realloc(arr,n*sizeof(int));
+void display(int n){
+    printf("the entered elements are:\n");
+    for ( i = 0; i < n; i++)
+    {
+        printf("%d\t",*(data+i));
+    }
+    printf("\n");
+    
+}
+void insert(int ele,int pos,int n){
+
+    data=(int*)realloc(data,n*sizeof(int));
     while(j>=pos){
-        arr[j+1]=arr[j];
+        data[j+1]=data[j];
         j--;
     }
-    arr[pos]=ele;
+    data[j]=ele;
 }
-int delete1(pos){
-    int j;
-    for(j=0;j<n-1;j++){
-        arr[j]=arr[j+1];
+void delete(int pos, int n){
+    for(j=pos;j<n-1;j++){
+        data[j]=data[j+1];
     }
-    n--;
-    if(n==0)    printf("no element to be deleted\n");
+    if(n==0)    printf("no elements to be deleted\n");
 }
+
 int main(){
-    int i,j,n,*arr,pos,ele,selection;
     while(1){
-        printf("enter the selection\n1.create an array\n2.display the array\n3.insert an element\n4.delete an element\n5.exit the program\n");
+        label1:printf("enter the selection:\n1.create an array\n2.display the array\n3.insert an element\n4.delete a position\n5.exit\n");
         scanf("%d",&selection);
         switch(selection){
-            case 1: printf("enter the array size\n");
+            case 1: printf("enter the array size:\n");
                     scanf("%d",&n);
                     create(n);
                     break;
-            case 2: show();
+            case 2: display(n);
                     break;
             case 3: printf("enter the element\n");
                     scanf("%d",&ele);
                     printf("enter the position\n");
-                    scanf("%d",&pos);
-                    insert1(ele,pos);
+                    scanf("%d",pos);
+                    n=j-1;
+                    n++;
+                    insert(ele,pos,n);
                     break;
             case 4: printf("enter the position\n");
                     scanf("%d",&pos);
-                    delete1(pos);
+                    delete(ele,n);
+                    n--;
                     break;
-            case 5: printf("exiting\n");
+            case 5: printf("exiting...\n");
+                    free(data);
+                    exit(0);
                     break;
+            default:printf("enter a valid selection\n");
+                    goto label1;
         }
     }
-    free(arr);
     return 0;
 }
