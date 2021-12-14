@@ -39,7 +39,7 @@ void match_pat(){
         printf("pat:%s is not found in str: %s",pat,str);
     }
     else{
-        //ans[j]='\0';
+        ans[j++]='\0';
         printf("the resulting string is %s",ans);
     }
     
