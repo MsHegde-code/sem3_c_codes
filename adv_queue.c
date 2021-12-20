@@ -10,7 +10,6 @@ int insert(){
         printf("queue is full\n");
         return -1;
     }
-    int n;
     printf("enter the number\n");
     scanf("%d",&q[++rear]);
     ct++;
