@@ -2,33 +2,33 @@
 #include<stdlib.h>
 #define max 5
 int q[max],rear=-1,front=0,ct;
-int insert(){
+void insert(){
     if(front>rear){
         front=0;rear=-1;
     }
     if(ct==max){
         printf("queue is full\n");
-        return -1;
+        return;
     }
     printf("enter the number\n");
     scanf("%d",&q[++rear]);
     ct++;
 }
-int delete(){
+void delete(){
     if(front>rear){
         rear=-1;front=0;
     }
     if(ct==0){
         printf("Queue is empty\n");
-        return -1;
+        return;
     }
     printf("the deleted number is : %d\n",q[front++]);
     ct--;
 }
-int display(){
+void display(){
     if(ct==0){
         printf("queue is empty\n");
-        return -1;
+        return;
     }
     printf("the elements are:\t");
     for(size_t i=front;i<=rear;i++)
