@@ -1,41 +1,41 @@
 #include<stdio.h>
 #include<stdlib.h>
-#define max 10
+#define max 5
 int queue[max],rear=-1,front=0;
-int insert_rear(){
+void insert_rear(){
     if(rear==max-1){
-        printf("queue is full\n");
-        return -1;
+        printf("queue of rear is full\n");
+        return;
     }
     printf("enter the number\n");
     scanf("%d",&queue[++rear]);
 }
-int delete_rear(){
+void delete_rear(){
     if(rear==-1||front>rear){
         printf("queue is empty\n");
-        return -1;
+        return;
     }
     printf("item removed is %d\n",queue[rear--]);
 }
-int insert_front(){
+void insert_front(){
     if(front==0){
         printf("queue of front is full\n");
-        return -1;
+        return;
     }
     printf("enter the number\n");
     scanf("%d",&queue[--front]);
 }
-int delete_front(){
-    if(rear==-1){
+void delete_front(){
+    if(rear==-1||front>rear){
         printf("queue is empty\n");
-        return -1;
+        return;
     }
     printf("deleted item is %d\n",queue[front++]);
 }
-int display(){
-    if(rear==-1&&front==0){
+void display(){
+    if(rear==-1||front>rear){
         printf("queue is empty\n");
-        return -1;
+        return;
     }
     printf("entered elements are:\n");
     for (size_t i = front; i <= rear; i++)
