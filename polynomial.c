@@ -49,6 +49,7 @@ void display(node *head){
 	}
 	printf("\n");
 }
+
 void evaluate(node *head){
 	int x,y,z,ans=0;
 	node *temp=head->next;
@@ -60,8 +61,36 @@ void evaluate(node *head){
 	}
 	printf("answer=%d",ans);
 }
+node* add_poly(node *h1,node *h2,node *h3){
+	node *p1,*p2;
+	p1=h1->next;
+	while(p1!=h1){
+		p2=h2->next;
+		while(p2!=h2){
+			if(p1->px==p2->px&&p1->py==p2->py&&p1->pz==p2->pz){
+				h3=insert_rear(p1->cf+p2->cf,p1->px,p1->py,p1->pz,h3);
+				p1->flag=1;p2->flag=1;
+			}
+			p2=p2->next;
+		}
+		if(p1->flag==0){
+			h3=insert_rear(p1->cf,p1->px,p1->py,p1->pz,h3);
+			p1->flag=1;
+		}
+		p1=p1->next;
+	}
+	p2=h2->next;
+	while(p2!=h2){
+		if(p2->flag==0){
+			h3=insert_rear(p2->cf,p2->px,p2->py,p2->pz,h3);
+			p2->flag=1;
+		}
+		p2=p2->next;
+	}
+	return (h3);
+}
 void main(){
-	int ch;node *head;
+	int ch;node *head,*h1,*h2,*h3;
 	while(1){
 		printf("enter the choice\n1.evaluate\n2.addition\n3.exit\n");
 		scanf("%d",&ch);
@@ -72,6 +101,21 @@ void main(){
 					display(head);
 					evaluate(head);
 					free(head);
+					break;
+			case 2: h1=getnode();
+					h2=getnode();
+					h3=getnode();
+					printf("enter the 1 polynomial\n");
+					h1=read_poly(h1);
+					printf("\nenter the 2 polynomial\n");
+					h2=read_poly(h2);
+					printf("polynomial 1 is:");
+					display(h1);
+					printf("polynomial 2 is:");
+					display(h2);
+					h3=add_poly(h1,h2,h3);
+					printf("sum is :");
+					display(h3);
 					break;
 			default: exit(0);
 		}
