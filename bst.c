@@ -5,68 +5,79 @@ typedef struct bst{
     struct bst *rptr,*lptr;
 }node;
 node *root=NULL;
-node* insert(node *root){
-    node *new,*current=root,*prev;
+node *create(){
+    node *new;
     new=(node*)malloc(sizeof(node));
     printf("enter the number\n");
     scanf("%d",&new->info);
-    new->rptr=NULL;
     new->lptr=NULL;
+    new->rptr=NULL;
+    return new;
+}
+void insert(){
+    node *new,*temp=root,*prev;
+    new=create();
     if(root==NULL){
-        return new;
+        root=new;
+        return;
     }
-    while(current!=NULL){
-        prev=current;
-        if(current->info>new->info) current=current->lptr;
-        else        current=current->rptr;
+    while(temp!=NULL){
+        prev=temp;
+        if((temp->info)>(new->info))
+            temp=temp->lptr;
+        else    
+            temp=temp->rptr;
     }
-    if(prev->info<current->info)    prev->rptr=new;
-    else    prev->lptr=new;
-    return root;
+    if((prev->info)>new->info)
+        prev->lptr=new;
+    else    
+        prev->rptr=new;
+    return;
 }
-void inorder(node *root){
-    //if(root!=NULL){
-        inorder(root->lptr);
-        printf("%d\t",root->info);
-        inorder(root->rptr);
-    //}
+void inorder(node *temp){
+    if(temp!=NULL){
+        inorder(temp->lptr);
+        printf("%d\t",temp->info);
+        inorder(temp->rptr);
+    }
 }
-void preorder(node *root){
-    printf("%d\t",root->info);
-    preorder(root->lptr);
-    preorder(root->rptr);
+void preorder(node *temp){
+    if(temp!=NULL){
+        printf("%d\t",temp->info);
+        preorder(temp->lptr);
+        preorder(temp->rptr);
+    }
 }
-void postorder(node *root){
-    postorder(root->lptr);
-    postorder(root->rptr);
-    printf("%d\t",root->info);
+void postorder(node *temp){
+    if(temp!=NULL){
+        postorder(temp->lptr);
+        postorder(temp->rptr);
+        printf("%d\t",temp->info);
+    }
 }
 int main(){
-    int ch,n;//node *root=NULL;
+    int ch,n;
+    //node *temp=root;
     while(1){
-        printf("enter the choice\n1.insert\n2.transverse\n3.search\n4.exit\n");
+        printf("\nEnter the choice\n1.insert\n2.traversal\n3.exit\n");
         scanf("%d",&ch);
         switch(ch){
             case 1: printf("enter the number of nodes\n");
                     scanf("%d",&n);
                     for (size_t i = 0; i < n; i++)
                     {
-                        insert(root);
+                        insert();
                     }
+                    //insert();
                     break;
-            case 2: if(root==NULL){
-                        printf("tree is empty\n");
-                        }
-                    else{
+            case 2: printf("\ninorder :");
                     inorder(root);
+                    printf("\npreoder:");
                     preorder(root);
+                    printf("\npostoder:");
                     postorder(root);
-                    }
                     break;
-            case 3: //search();
-                    break;
-            default:exit(0);
-
+            default: exit(0);
         }
     }
 }
