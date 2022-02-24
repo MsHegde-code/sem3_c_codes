@@ -55,11 +55,27 @@ void postorder(node *temp){
         printf("%d\t",temp->info);
     }
 }
+void search(node *temp){
+    int key,flag=0;
+    //node *temp=root;
+    printf("enter the key to search\n");
+    scanf("%d",&key);
+    while(temp!=NULL){
+        if(key==temp->info){
+            flag=1;break;
+        }
+        else if(key>temp->info)
+            temp=temp->rptr;
+        else if(key<(temp->info))
+            temp=temp->lptr;
+        }
+    if(flag==1) printf("%d is present in the tree\n",key);
+    else printf("%d is not present in the tree\n",key);
+}
 int main(){
     int ch,n;
-    //node *temp=root;
     while(1){
-        printf("\nEnter the choice\n1.insert\n2.traversal\n3.exit\n");
+        printf("\nEnter the choice\n1.insert\n2.traversal\n3.search\n4.exit\n");
         scanf("%d",&ch);
         switch(ch){
             case 1: printf("enter the number of nodes\n");
@@ -70,12 +86,22 @@ int main(){
                     }
                     //insert();
                     break;
-            case 2: printf("\ninorder :");
+            case 2: if(root==NULL){
+                        printf("empty tree\n");
+                        }
+                    else{
+                    printf("\ninorder :");
                     inorder(root);
                     printf("\npreoder:");
                     preorder(root);
                     printf("\npostoder:");
                     postorder(root);
+                    }
+                    break;
+            case 3: if(root==NULL)
+                        printf("empty tree\n");
+                    else
+                        search(root);
                     break;
             default: exit(0);
         }
