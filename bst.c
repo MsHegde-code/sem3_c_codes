@@ -4,7 +4,7 @@ typedef struct bst{
     int info;
     struct bst *rptr,*lptr;
 }node;
-node *root=NULL;
+node *root=NULL;int min=0;
 node *create(){
     node *new;
     new=(node*)malloc(sizeof(node));
@@ -72,10 +72,42 @@ void search(node *temp){
     if(flag==1) printf("%d is present in the tree\n",key);
     else printf("%d is not present in the tree\n",key);
 }
+void findmin_del(node *temp){
+    if(temp!=NULL){
+        if(temp->lptr==NULL){
+            min=temp->info;
+            free(temp);
+            return;
+            }
+        else
+            findmin_del(temp->lptr);
+    }
+}
+void delete(node *temp,int key,node *prev){
+    if(key>temp->info)
+        delete(temp->rptr,key,temp);
+    else if(key<temp->info)
+        delete(temp->lptr,key,temp);
+    else if(key==temp->info){
+        if(temp->lptr==NULL&&temp->rptr==NULL){//leaf nodes
+            if(prev->info>temp->info)
+                prev->lptr=NULL;
+            else if(prev->info<temp->info)
+                prev->rptr=NULL;
+            printf("the deleted number is %d",temp->info);
+            free(temp);
+        }
+        else if(temp->rptr!=NULL){//internal nodes
+            printf("the deleted number is %d",temp->info);
+            findmin_del(temp->rptr);
+            temp->info=min;
+        }
+    }
+}
 int main(){
-    int ch,n;
+    int ch,n,del_key;
     while(1){
-        printf("\nEnter the choice\n1.insert\n2.traversal\n3.search\n4.exit\n");
+        printf("\nEnter the choice\n1.insert\n2.traversal\n3.search\n4.delete\n5.exit\n");
         scanf("%d",&ch);
         switch(ch){
             case 1: printf("enter the number of nodes\n");
@@ -84,7 +116,6 @@ int main(){
                     {
                         insert();
                     }
-                    //insert();
                     break;
             case 2: if(root==NULL){
                         printf("empty tree\n");
@@ -102,6 +133,14 @@ int main(){
                         printf("empty tree\n");
                     else
                         search(root);
+                    break;
+            case 4: if(root==NULL)
+                        printf("empty tree\n");
+                    else{
+                        printf("enter the number to be deleted:\n");
+                        scanf("%d",&del_key);
+                        delete(root,del_key,root);
+                    }
                     break;
             default: exit(0);
         }
