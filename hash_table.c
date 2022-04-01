@@ -6,40 +6,45 @@ struct hash_table
     int token;
     char name[20];
 }file[20];
-int table[20],ct=1,pos;
-void display(int n){
-    fp=fopen("hash_table.txt","w");
+int *table,ct=1,pos,m;
+void display(){
     printf("data of hash table:\n");
-    for (size_t i = 0; i < 20; i++)
+    for (size_t i = 0; i < m; i++)
     {
         printf("T[%d]->%d\n",i,table[i]);
-        fprintf(fp,"Person - %d\nName: %s \tToken number: %d\n",ct++,file[i].name,file[i].token);
     }
-    fclose(fp);
 }
-int main(){
-    int n;
+void main(){
+    int n,count=0;
     printf("enter the total number of data\n");
     scanf("%d",&n);
-    for(size_t i=0;i<20;i++){
-        table[i]=-1;//initializing sentinal value
+    printf("enter the hash table size\n");
+    scanf("%d",&m);
+    table=(int*)malloc(m*sizeof(int));
+    for (size_t i = 0; i < m; i++)
+    {
+        table[i]=-1;
     }
-    //here size of hash table remains constant = 20(mod 20)
+    fp=fopen("hash_table.txt","w");
     for(size_t i=0;i<n;i++){//getting the details
     printf("enter the details\n");
     scanf("%d%s",&file[i].token,file[i].name);
+    fprintf(fp,"Person - %d\nName: %s \tToken number: %d\n",ct++,file[i].name,file[i].token);
     }
-    for(size_t i=0;i<n;i++){
-        pos=(file[i].token)%20;
-        if(table[pos]==-1){
-        table[pos]=file[i].token;
+    for(int i=0;i<n;i++){
+        if(count==m){
+            printf("hash table is full,cannot insert the file %d\n",file[i].token);
         }
         else{
-            printf("collision occured at %d position, solving collision using linear probing\n",file[i].token);
-            pos=((file[i].token%20)+1)%20;
-            if(table[pos]==-1)
-                table[pos]=file[i].token;
+        pos=file[i].token % m;
+        while(table[pos]!=-1){
+            printf("collision occured at %d key,resolving using linear probing\n",file[i].token);
+            pos=(pos+1 )% m;
+            }
+        table[pos]=file[i].token;
+        count++;
         }
     }
-    display(n);
+    fclose(fp);
+    display();
 }

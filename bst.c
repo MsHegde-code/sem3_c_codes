@@ -83,7 +83,7 @@ void findmin_del(node *temp){
             findmin_del(temp->lptr);
     }
 }
-void delete(node *temp,int key,node *prev){
+/*void delete(node *temp,int key,node *prev){
     if(key>temp->info)
         delete(temp->rptr,key,temp);
     else if(key<temp->info)
@@ -103,7 +103,7 @@ void delete(node *temp,int key,node *prev){
             temp->info=min;
         }
     }
-}
+}*/
 int main(){
     int ch,n,del_key;
     while(1){
