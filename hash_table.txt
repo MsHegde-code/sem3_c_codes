@@ -1,8 +1,0 @@
-Person - 1
-Name: manit 	Token number: 1321
-Person - 2
-Name: manoj 	Token number: 1341
-Person - 3
-Name: vinay 	Token number: 1453
-Person - 4
-Name: boss 	Token number: 3215

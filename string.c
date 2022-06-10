@@ -22,7 +22,7 @@ void match_pat(){
             if(pat[i]=='\0'){
                 printf("pat:%s is found at %d position\n",pat,c);
                 for(k=0;rep[k]!='\0';k++,j++){
-                    rep[k]=ans[j];
+                    ans[j]=rep[k];
                     flag=1;
                 }
                 i=0;c=m;
@@ -45,7 +45,7 @@ void match_pat(){
     
     
 }
-int main(){
+void main(){
     read();
     match_pat();
 }

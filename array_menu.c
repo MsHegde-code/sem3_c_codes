@@ -21,14 +21,15 @@ void display(int n){
     printf("\n");
     
 }
-void insert(int ele,int pos,int n){
-
+void insert(int ele,int pos){
+    j=n-1;
+    n++;
     data=(int*)realloc(data,n*sizeof(int));
     while(j>=pos){
         data[j+1]=data[j];
         j--;
     }
-    data[j]=ele;
+    data[pos]=ele;
 }
 void delete(int pos, int n){
     for(j=pos;j<n-1;j++){
@@ -52,13 +53,11 @@ int main(){
                     scanf("%d",&ele);
                     printf("enter the position\n");
                     scanf("%d",pos);
-                    n=j-1;
-                    n++;
-                    insert(ele,pos,n);
+                    insert(ele,pos);
                     break;
             case 4: printf("enter the position\n");
                     scanf("%d",&pos);
-                    delete(ele,n);
+                    delete(pos,n);
                     n--;
                     break;
             case 5: printf("exiting...\n");
